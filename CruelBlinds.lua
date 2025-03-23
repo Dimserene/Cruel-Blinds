@@ -381,7 +381,7 @@ SMODS.Blind	{
         if not check then
             G.GAME.blind.triggered = true
             local count = G.GAME.hands[handname].played - 1
-            if (to_big and (to_big(count) > to_big(0))) or (not to_big and (count > 0)) then
+            if (count > 0) then
                 G.GAME.blind.chips = math.floor(G.GAME.blind.chips * (1 + (0.04 * count)))
                 G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
                 G.GAME.blind:set_text()
@@ -409,7 +409,7 @@ SMODS.Blind	{
         G.GAME.blind.triggered = false
         if not check then
             local count = math.min(G.GAME.hands[handname].level - 1, math.floor(G.GAME.hands[handname].level / 2))
-            if ((to_big and to_big(count) or count) > (to_big and to_big(0) or 0)) then
+            if (count > 0) then
                 if not check then
                     G.GAME.blind.triggered = true
                     level_up_hand(G.GAME.blind.children.animatedSprite, handname, nil, -count)
@@ -1793,7 +1793,7 @@ SMODS.Back {
         G.GAME.win_ante = (G.GAME.win_ante or 8) + 1
         G.GAME.used_vouchers['v_directors_cut'] = true
         G.GAME.starting_voucher_count = (G.GAME.starting_voucher_count or 0) + 1
-	G.E_MANAGER:add_event(Event({func = function()
+	    G.E_MANAGER:add_event(Event({func = function()
             Card.apply_to_run(nil, G.P_CENTERS['v_directors_cut'])
     	return true end }))
     end
